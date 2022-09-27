@@ -18,10 +18,10 @@ export default function ArticleList() {
     return <h2> Articles Loading </h2>;
   }
   return (
-    <div>
+    <ul>
       {articles.map((article) => (
         <ArticleCard key={article["article_id"]} article={article} />
       ))}
-    </div>
+    </ul>
   );
 }

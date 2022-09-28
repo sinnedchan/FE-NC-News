@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById } from "../api";
+import { getArticleById, addVotes, minusVotes } from "../api";
 
 export default function ArticleCard() {
   const { article_id } = useParams();
   const [currArticle, setCurrArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isValid, setIsValid] = useState(true);
+  const [votes, setVotes] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,7 +34,35 @@ export default function ArticleCard() {
       <p>{currArticle.topic} </p>
       <p>{currArticle.body} </p>
       <p>comments: {currArticle.comment_count} </p>
-      <p>votes: {currArticle.votes}</p>
+      <p>votes: {currArticle.votes + votes}</p>
+      <button
+        onClick={() => {
+          addVotes(article_id).catch(() => {
+            setVotes((currVotes) => {
+              return currVotes - 1;
+            });
+          });
+          setVotes((currVotes) => {
+            return currVotes + 1;
+          });
+        }}
+      >
+        +
+      </button>
+      <button
+        onClick={() => {
+          minusVotes(article_id).catch(() => {
+            setVotes((currVotes) => {
+              return currVotes + 1;
+            });
+          });
+          setVotes((currVotes) => {
+            return currVotes - 1;
+          });
+        }}
+      >
+        -
+      </button>
     </div>
   );
 }

@@ -17,3 +17,13 @@ export const getAllTopics = () => {
       return res.data;
     });
 };
+
+export const getArticleById = (article_id) => {
+  return axios
+    .get(
+      `https://sinnedchan-nc-new-example-api.herokuapp.com/api/articles/${article_id}`
+    )
+    .then((res) => {
+      return res.data.article;
+    });
+};

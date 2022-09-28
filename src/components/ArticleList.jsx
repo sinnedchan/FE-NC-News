@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticles } from "../api";
-import ArticleCard from "./ArticleCard";
+import { Link } from "react-router-dom";
 
 export default function ArticleList() {
   const [articles, setArticles] = useState([]);
@@ -26,9 +26,18 @@ export default function ArticleList() {
     <div>
       <h2>Articles</h2>
       <ul>
-        {articles.map((article) => (
-          <ArticleCard key={article["article_id"]} article={article} />
-        ))}
+        {articles.map((article) => {
+          return (
+            <li key={article["article_id"]}>
+              <Link to={`/articles/${article.article_id}`}>
+                <h4>{article.title}</h4>
+              </Link>
+              <p>
+                {article.topic} {article.votes} {article.comment_count}
+              </p>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

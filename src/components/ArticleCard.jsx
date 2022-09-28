@@ -28,11 +28,11 @@ export default function ArticleCard() {
     <div key={currArticle["article_id"]}>
       <h3>{currArticle.title}</h3>
       <p>
-        {currArticle.author} {currArticle["created_at"]}
+        {currArticle.author} {currArticle.created_at}
       </p>
       <p>{currArticle.topic} </p>
       <p>{currArticle.body} </p>
-      <p>comments: {currArticle["comment_count"]} </p>
+      <p>comments: {currArticle.comment_count} </p>
       <p>votes: {currArticle.votes}</p>
     </div>
   );

@@ -22,11 +22,9 @@ export default function ArticleCard() {
   const handleClick = (num) => {
     console.log("clicked");
     setOptVote((currVote) => currVote + num);
-    changeVotes(article_id, num)
-      .then(() => {})
-      .catch(() => {
-        setOptVote((currVote) => currVote - num);
-      });
+    changeVotes(article_id, num).catch(() => {
+      setOptVote((currVote) => currVote - num);
+    });
   };
 
   if (!isValid) {

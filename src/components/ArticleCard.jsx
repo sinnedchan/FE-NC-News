@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById, changeVotes } from "../api";
+import CommentList from "./CommentList";
 
 export default function ArticleCard() {
   const { article_id } = useParams();
@@ -41,10 +42,11 @@ export default function ArticleCard() {
       </p>
       <p>{currArticle.topic} </p>
       <p>{currArticle.body} </p>
-      <p>comments: {currArticle.comment_count} </p>
       <p>votes: {currArticle.votes + optVote}</p>
       <button onClick={() => handleClick(1)}>+</button>
       <button onClick={() => handleClick(-1)}>-</button>
+      <p>Comments ({currArticle.comment_count}) </p>
+      <CommentList article_id={article_id} />
     </div>
   );
 }

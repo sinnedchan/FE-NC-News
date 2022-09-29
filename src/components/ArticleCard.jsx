@@ -34,11 +34,13 @@ export default function ArticleCard() {
   if (isLoading) {
     return <h2>Article is loading</h2>;
   }
+  const dateFormat = new Date(currArticle.created_at);
   return (
     <div key={currArticle["article_id"]}>
       <h3>{currArticle.title}</h3>
       <p>
-        {currArticle.author} {currArticle.created_at}
+        {currArticle.author} @{" "}
+        {`${dateFormat.getDate()}.${dateFormat.getMonth()}.${dateFormat.getFullYear()}`}
       </p>
       <p>{currArticle.topic} </p>
       <p>{currArticle.body} </p>

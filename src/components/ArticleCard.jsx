@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById, addVotes, minusVotes } from "../api";
+import { getArticleById, changeVotes } from "../api";
 
 export default function ArticleCard() {
   const { article_id } = useParams();
   const [currArticle, setCurrArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isValid, setIsValid] = useState(true);
-  const [votes, setVotes] = useState(0);
+  const [optVote, setOptVote] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,6 +18,16 @@ export default function ArticleCard() {
       setIsValid(true);
     });
   }, [article_id]);
+
+  const handleClick = (num) => {
+    console.log("clicked");
+    setOptVote((currVote) => currVote + num);
+    changeVotes(article_id, num)
+      .then(() => {})
+      .catch(() => {
+        setOptVote((currVote) => currVote - num);
+      });
+  };
 
   if (!isValid) {
     return <h2>Article does not exist!</h2>;
@@ -34,35 +44,9 @@ export default function ArticleCard() {
       <p>{currArticle.topic} </p>
       <p>{currArticle.body} </p>
       <p>comments: {currArticle.comment_count} </p>
-      <p>votes: {currArticle.votes + votes}</p>
-      <button
-        onClick={() => {
-          addVotes(article_id).catch(() => {
-            setVotes((currVotes) => {
-              return currVotes - 1;
-            });
-          });
-          setVotes((currVotes) => {
-            return currVotes + 1;
-          });
-        }}
-      >
-        +
-      </button>
-      <button
-        onClick={() => {
-          minusVotes(article_id).catch(() => {
-            setVotes((currVotes) => {
-              return currVotes + 1;
-            });
-          });
-          setVotes((currVotes) => {
-            return currVotes - 1;
-          });
-        }}
-      >
-        -
-      </button>
+      <p>votes: {currArticle.votes + optVote}</p>
+      <button onClick={() => handleClick(1)}>+</button>
+      <button onClick={() => handleClick(-1)}>-</button>
     </div>
   );
 }

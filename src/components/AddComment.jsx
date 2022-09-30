@@ -29,7 +29,6 @@ export default function AddComment({ setComments, setCommentCount }) {
       });
       setComments((prev) => {
         return prev.filter((comment) => {
-          console.log(comment.body, newBody);
           return comment.body !== newBody;
         });
       });
@@ -41,6 +40,7 @@ export default function AddComment({ setComments, setCommentCount }) {
       <h4>Add a comment</h4>
       <form onSubmit={handleSubmit}>
         <input
+          value={newBody}
           onChange={(event) => {
             setNewBody(event.target.value);
           }}

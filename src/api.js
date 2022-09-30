@@ -41,3 +41,15 @@ export const changeVotes = (article_id, votes) => {
       return res.data;
     });
 };
+
+export const addComment = (article_id, author, body, comment) => {
+  return newsApi
+    .post(`/articles/${article_id}/comments`, {
+      username: author,
+      body: body,
+      comment: comment,
+    })
+    .then((res) => {
+      return res.comment;
+    });
+};

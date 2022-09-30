@@ -47,8 +47,10 @@ export default function ArticleCard() {
       <p>votes: {currArticle.votes + optVote}</p>
       <button onClick={() => handleClick(1)}>+</button>
       <button onClick={() => handleClick(-1)}>-</button>
-      <p>Comments ({currArticle.comment_count}) </p>
-      <CommentList article_id={article_id} />
+      <CommentList
+        article_id={article_id}
+        comment_count={currArticle.comment_count}
+      />
     </div>
   );
 }

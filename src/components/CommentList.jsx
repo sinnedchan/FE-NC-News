@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import { getComments } from "../api";
+import AddComment from "./AddComment";
 
-export default function CommentList({ article_id }) {
+export default function CommentList({ article_id, comment_count }) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [commentCount, setCommentCount] = useState(comment_count);
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,10 +20,18 @@ export default function CommentList({ article_id }) {
     return <p>loading comments</p>;
   }
   return (
-    <ul>
-      {comments.map((comment) => {
-        return <CommentCard comment={comment} />;
-      })}
-    </ul>
+    <div>
+      <p>Comments ({commentCount})</p>
+      <ul>
+        {comments.map((comment) => {
+          return <CommentCard comment={comment} />;
+        })}
+      </ul>
+      <AddComment
+        setComments={setComments}
+        article_id={article_id}
+        setCommentCount={setCommentCount}
+      />
+    </div>
   );
 }
